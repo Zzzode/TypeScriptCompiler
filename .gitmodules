@@ -1,3 +1,6 @@
 [submodule "3rdParty/llvm-project"]
 	path = 3rdParty/llvm-project
 	url = https://github.com/llvm/llvm-project.git
+[submodule "3rdParty/gc"]
+	path = 3rdParty/gc
+	url = https://github.com/ivmai/bdwgc.git

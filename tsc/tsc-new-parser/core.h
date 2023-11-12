@@ -10,23 +10,25 @@
 namespace ts
 {
 
-template <typename T, typename U> auto copy(std::vector<T> &to_vector, const std::vector<U> &from_vector) -> void
+template<typename T, typename U>
+auto copy(std::vector<T> &to_vector, const std::vector<U> &from_vector) -> void
 {
-    for (auto &item : from_vector)
+    for (auto &item: from_vector)
     {
         to_vector.push_back(item);
     }
 }
 
-template <typename T, typename U> auto copy(T &to_vector, const U &from_vector) -> void
+template<typename T, typename U>
+auto copy(T &to_vector, const U &from_vector) -> void
 {
-    for (auto &item : from_vector)
+    for (auto &item: from_vector)
     {
         to_vector.push_back(item);
     }
 }
 
-template <typename T, typename U>
+template<typename T, typename U>
 auto forEach(T array, std::function<U(std::remove_reference_t<decltype(array[0])>, number)> callback = nullptr) -> U
 {
     if (array.size())
@@ -44,7 +46,7 @@ auto forEach(T array, std::function<U(std::remove_reference_t<decltype(array[0])
     return U();
 }
 
-template <typename T, typename U>
+template<typename T, typename U>
 auto forEach(T array, std::function<U(std::remove_reference_t<decltype(array[0])>)> callback = nullptr) -> U
 {
     if (array.size())
@@ -62,13 +64,14 @@ auto forEach(T array, std::function<U(std::remove_reference_t<decltype(array[0])
     return U();
 }
 
-template <typename T> auto some(std::vector<T> array, std::function<boolean(T)> predicate = nullptr) -> boolean
+template<typename T>
+auto some(std::vector<T> array, std::function<boolean(T)> predicate = nullptr) -> boolean
 {
     if (!array.empty())
     {
         if (predicate)
         {
-            for (auto v : array)
+            for (auto v: array)
             {
                 if (predicate(v))
                 {
@@ -84,13 +87,14 @@ template <typename T> auto some(std::vector<T> array, std::function<boolean(T)> 
     return false;
 }
 
-template <typename T> auto some(T array, std::function<boolean(decltype(array[0]))> predicate = nullptr) -> boolean
+template<typename T>
+auto some(T array, std::function<boolean(decltype(array[0]))> predicate = nullptr) -> boolean
 {
     if (array.size())
     {
         if (predicate)
         {
-            for (auto &v : array)
+            for (auto &v: array)
             {
                 if (predicate(v))
                 {
@@ -107,9 +111,10 @@ template <typename T> auto some(T array, std::function<boolean(decltype(array[0]
 }
 
 /** Works like Array.prototype.find, returning `undefined` if no element satisfying the predicate is found. */
-template <typename T> auto find(std::vector<T> array, std::function<boolean(T)> predicate) -> T
+template<typename T>
+auto find(std::vector<T> array, std::function<boolean(T)> predicate) -> T
 {
-    for (auto value : array)
+    for (auto value: array)
     {
         if (predicate(value))
         {
@@ -119,7 +124,8 @@ template <typename T> auto find(std::vector<T> array, std::function<boolean(T)> 
     return undefined;
 }
 
-template <typename T> auto find(std::vector<T> array, std::function<boolean(T, number)> predicate) -> T
+template<typename T>
+auto find(std::vector<T> array, std::function<boolean(T, number)> predicate) -> T
 {
     for (auto i = 0; i < array.size(); i++)
     {
@@ -132,11 +138,11 @@ template <typename T> auto find(std::vector<T> array, std::function<boolean(T, n
     return undefined;
 }
 
-template <typename T>
+template<typename T>
 auto find(T array, std::function<boolean(std::remove_reference_t<decltype(array[0])>)> predicate)
     -> std::remove_reference_t<decltype(array[0])>
 {
-    for (auto value : array)
+    for (auto value: array)
     {
         if (predicate(value))
         {
@@ -146,7 +152,7 @@ auto find(T array, std::function<boolean(std::remove_reference_t<decltype(array[
     return undefined;
 }
 
-template <typename T>
+template<typename T>
 auto sameMap(T array, std::function<std::remove_reference_t<decltype(array[0])>(std::remove_reference_t<decltype(array[0])>)> f) -> T
 {
     if (array)
@@ -171,7 +177,7 @@ auto sameMap(T array, std::function<std::remove_reference_t<decltype(array[0])>(
     return array;
 }
 
-template <typename T>
+template<typename T>
 auto sameMapWithNumber(T array,
                        std::function<std::remove_reference_t<decltype(array[0])>(std::remove_reference_t<decltype(array[0])>, number)> f)
     -> T
@@ -198,12 +204,14 @@ auto sameMapWithNumber(T array,
     return array;
 }
 
-template <typename T> auto toOffset(T array, number offset) -> number
+template<typename T>
+auto toOffset(T array, number offset) -> number
 {
     return offset < 0 ? array.size() + offset : offset;
 }
 
-template <typename T, typename U> auto addRange(T to, U from, number start = -1, number end = -1) -> T
+template<typename T, typename U>
+auto addRange(T to, U from, number start = -1, number end = -1) -> T
 {
     start = start == -1 ? 0 : toOffset(from, start);
     end = end == -1 ? from.size() : toOffset(from, end);
@@ -218,7 +226,8 @@ template <typename T, typename U> auto addRange(T to, U from, number start = -1,
     return to;
 }
 
-template <typename T> auto findIndex(T array, std::function<boolean(decltype(array[0]), number)> predicate, number startIndex = 0) -> number
+template<typename T>
+auto findIndex(T array, std::function<boolean(decltype(array[0]), number)> predicate, number startIndex = 0) -> number
 {
     for (auto i = startIndex; i < array.size(); i++)
     {
@@ -230,7 +239,8 @@ template <typename T> auto findIndex(T array, std::function<boolean(decltype(arr
     return -1;
 }
 
-template <typename T> auto firstOrUndefined(T array) -> std::remove_reference_t<decltype(array[0])>
+template<typename T>
+auto firstOrUndefined(T array) -> std::remove_reference_t<decltype(array[0])>
 {
     auto len = array.size();
     if (len > 0)
@@ -241,7 +251,8 @@ template <typename T> auto firstOrUndefined(T array) -> std::remove_reference_t<
     return undefined;
 }
 
-template <typename T> auto lastOrUndefined(T array) -> std::remove_reference_t<decltype(array[0])>
+template<typename T>
+auto lastOrUndefined(T array) -> std::remove_reference_t<decltype(array[0])>
 {
     auto len = array.size();
     if (len > 0)
@@ -252,7 +263,8 @@ template <typename T> auto lastOrUndefined(T array) -> std::remove_reference_t<d
     return undefined;
 }
 
-template <typename T> auto arraysEqual(const std::vector<T> &a, const std::vector<T> &b) -> boolean
+template<typename T>
+auto arraysEqual(const std::vector<T> &a, const std::vector<T> &b) -> boolean
 {
     if (a.size() != b.size())
     {
@@ -260,7 +272,7 @@ template <typename T> auto arraysEqual(const std::vector<T> &a, const std::vecto
     }
 
     auto i = 0;
-    for (auto &ai : a)
+    for (auto &ai: a)
     {
         if (ai != b[i++])
         {
@@ -271,7 +283,8 @@ template <typename T> auto arraysEqual(const std::vector<T> &a, const std::vecto
     return true;
 }
 
-template <typename T> auto arraysEqual(T &a, T &b) -> boolean
+template<typename T>
+auto arraysEqual(T &a, T &b) -> boolean
 {
     if (a.size() != b.size())
     {
@@ -279,7 +292,7 @@ template <typename T> auto arraysEqual(T &a, T &b) -> boolean
     }
 
     auto i = 0;
-    for (auto &ai : a)
+    for (auto &ai: a)
     {
         if (ai != b[i++])
         {
@@ -290,19 +303,22 @@ template <typename T> auto arraysEqual(T &a, T &b) -> boolean
     return true;
 }
 
-template <typename T> auto compareComparableValues(T a, T b)
+template<typename T>
+auto compareComparableValues(T a, T b)
 {
     return a == b ? Comparison::EqualTo : a < b ? Comparison::LessThan : Comparison::GreaterThan;
 }
 
-template <typename T> auto compareValues(T a, T b) -> Comparison
+template<typename T>
+auto compareValues(T a, T b) -> Comparison
 {
     return compareComparableValues(a, b);
 }
 
-template <typename T> using Comparer = std::function<Comparison(T, T)>;
+template<typename T>
+using Comparer = std::function<Comparison(T, T)>;
 
-template <typename T, typename U>
+template<typename T, typename U>
 auto binarySearchKey(const std::vector<T> &array, U key, std::function<U(T, number)> keySelector, Comparer<U> keyComparer,
                      number offset = 0) -> number
 {
@@ -333,14 +349,15 @@ auto binarySearchKey(const std::vector<T> &array, U key, std::function<U(T, numb
     return ~low;
 }
 
-template <typename T, typename U>
+template<typename T, typename U>
 auto binarySearch(const std::vector<T> &array, T value, std::function<U(T, number)> keySelector, Comparer<U> keyComparer, number offset = 0)
     -> number
 {
     return binarySearchKey<T, U>(array, keySelector(value, -1), keySelector, keyComparer, offset);
 }
 
-template <typename T, typename U> inline auto append(T arr, U value) -> T
+template<typename T, typename U>
+inline auto append(T arr, U value) -> T
 {
     arr.push_back(value);
     return arr;
@@ -370,7 +387,7 @@ inline static auto trim(const string &s) -> string
 static string join(const std::vector<string> &v)
 {
     string s;
-    for (auto &p : v)
+    for (auto &p: v)
     {
         s += p;
     }
@@ -395,53 +412,62 @@ static string join(const std::vector<string> &v)
 
 static string str_tolower(string s)
 {
-    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
     return s;
 }
 
 static string str_toupper(string s)
 {
-    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::toupper(c); });
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::toupper(c); });
     return s;
 }
 
 
 using fnumber = double;
-static auto levenshteinWithMax(string s1, string s2, number max) -> number {
+
+static auto levenshteinWithMax(string s1, string s2, number max) -> number
+{
     std::vector<fnumber> previous(s2.size() + 1);
     std::vector<fnumber> current(s2.size() + 1);
     /** Represents any value > max. We don't care about the particular value. */
     auto big = max + 0.01;
 
-    for (auto i = 0; i <= s2.size(); i++) {
+    for (auto i = 0; i <= s2.size(); i++)
+    {
         previous[i] = i;
     }
 
-    for (auto i = 1; i <= s1.size(); i++) {
+    for (auto i = 1; i <= s1.size(); i++)
+    {
         auto c1 = s1[i - 1];
-        auto minJ = (fnumber) std::ceil(i > max ? i - max : 1);
-        auto maxJ = (fnumber) std::floor(s2.size() > max + i ? max + i : s2.size());
+        auto minJ = (fnumber)std::ceil(i > max ? i - max : 1);
+        auto maxJ = (fnumber)std::floor(s2.size() > max + i ? max + i : s2.size());
         current[0] = i;
         /** Smallest value of the matrix in the ith column. */
         auto colMin = i;
-        for (auto j = 1; j < minJ; j++) {
+        for (auto j = 1; j < minJ; j++)
+        {
             current[j] = big;
         }
-        for (auto j = minJ; j <= maxJ; j++) {
+        for (auto j = minJ; j <= maxJ; j++)
+        {
             // case difference should be significantly cheaper than other differences
             auto substitutionDistance = std::tolower(s1[i - 1]) == std::tolower(s2[j - 1])
-                ? (previous[j - 1] + 0.1)
-                : (previous[j - 1] + 2);
+                                            ? (previous[j - 1] + 0.1)
+                                            : (previous[j - 1] + 2);
             auto dist = c1 == s2[j - 1]
-                ? previous[j - 1]
-                : std::min((fnumber) (/*delete*/ previous[j] + 1, /*insert*/ current[j - 1] + 1), /*substitute*/ (fnumber) substitutionDistance);
+                            ? previous[j - 1]
+                            : std::min((fnumber)(/*delete previous[j] + 1,*/ /*insert*/ current[j - 1] + 1), /*substitute*/
+                                       (fnumber)substitutionDistance);
             current[j] = dist;
-            colMin = std::min((fnumber)colMin, dist);
+            colMin = std::min(static_cast<fnumber>(colMin), dist);
         }
-        for (auto j = maxJ + 1; j <= s2.size(); j++) {
+        for (auto j = maxJ + 1; j <= s2.size(); j++)
+        {
             current[j] = big;
         }
-        if (colMin > max) {
+        if (colMin > max)
+        {
             // Give up -- everything in this column is > max and it can't get better in future columns.
             return undefined;
         }
@@ -455,25 +481,31 @@ static auto levenshteinWithMax(string s1, string s2, number max) -> number {
     return res > max ? undefined : res;
 }
 
-template <typename T>
-auto getSpellingSuggestion(string name, std::vector<T> candidates, std::function<string(T)> getName) -> T {
+template<typename T>
+auto getSpellingSuggestion(string name, std::vector<T> candidates, std::function<string(T)> getName) -> T
+{
     auto maximumLengthDifference = std::max(2.0, std::floor(name.length() * 0.34));
     auto bestDistance = std::floor(name.length() * 0.4) + 1; // If the best result is worse than this, don't bother.
     T bestCandidate;
-    for (auto candidate : candidates) {
+    for (auto candidate: candidates)
+    {
         auto candidateName = getName(candidate);
-        if (!candidateName.empty() && std::abs((const long)(candidateName.size() - name.length())) <= maximumLengthDifference) {
-            if (candidateName == name) {
+        if (!candidateName.empty() && std::abs(static_cast<const long>(candidateName.size() - name.length())) <= maximumLengthDifference)
+        {
+            if (candidateName == name)
+            {
                 continue;
             }
             // Only consider candidates less than 3 characters long when they differ by case.
             // Otherwise, don't bother, since a user would usually notice differences of a 2-character name.
-            if (candidateName.length() < 3 && str_tolower(candidateName) != str_tolower(name)) {
+            if (candidateName.length() < 3 && str_tolower(candidateName) != str_tolower(name))
+            {
                 continue;
             }
 
             auto distance = levenshteinWithMax(name, candidateName, bestDistance - 0.1);
-            if (distance == undefined) {
+            if (distance == undefined)
+            {
                 continue;
             }
 

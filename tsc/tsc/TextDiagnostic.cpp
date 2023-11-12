@@ -5,24 +5,28 @@
 using namespace typescript::tslang;
 
 static const enum llvm::raw_ostream::Colors noteColor =
-    llvm::raw_ostream::BLACK;
+        llvm::raw_ostream::BLACK;
 static const enum llvm::raw_ostream::Colors remarkColor =
-    llvm::raw_ostream::BLUE;
+        llvm::raw_ostream::BLUE;
 static const enum llvm::raw_ostream::Colors warningColor =
-    llvm::raw_ostream::MAGENTA;
+        llvm::raw_ostream::MAGENTA;
 static const enum llvm::raw_ostream::Colors errorColor = llvm::raw_ostream::RED;
 static const enum llvm::raw_ostream::Colors fatalColor = llvm::raw_ostream::RED;
 // Used for changing only the bold attribute.
 static const enum llvm::raw_ostream::Colors savedColor =
-    llvm::raw_ostream::SAVEDCOLOR;
+        llvm::raw_ostream::SAVEDCOLOR;
 
-TextDiagnostic::TextDiagnostic() {}
+TextDiagnostic::TextDiagnostic()
+{
+}
 
-TextDiagnostic::~TextDiagnostic() {}
+TextDiagnostic::~TextDiagnostic()
+{
+}
 
 void TextDiagnostic::printDiagnosticLevel(llvm::raw_ostream &os,
-                                     clang::DiagnosticsEngine::Level level,
-                                     bool showColors)
+                                          clang::DiagnosticsEngine::Level level,
+                                          bool showColors)
 {
     if (showColors)
     {

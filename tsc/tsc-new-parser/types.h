@@ -7,7 +7,7 @@
 namespace ts
 {
     struct LineAndCharacter {
-
+        LineAndCharacter(number line, number character) : line(line), character(character) {}
         LineAndCharacter() = default;
 
         /** 0-based. */

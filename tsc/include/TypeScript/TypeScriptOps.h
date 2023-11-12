@@ -18,9 +18,8 @@
 #include "mlir/Interfaces/LoopLikeInterface.h"
 #include "mlir/IR/Matchers.h"
 
-namespace mlir
-{
-namespace typescript
+
+namespace mlir::typescript
 {
 
 /// FieldInfo represents a field in the TupleType(StructType) data type. It is used as a
@@ -29,13 +28,13 @@ struct FieldInfo
 {
     Attribute id;
     Type type;
-    bool isConditional;
+    bool isConditional = false;
 
     // Custom allocation called from generated constructor code
     FieldInfo allocateInto(TypeStorageAllocator &alloc) const
     {
         // return FieldInfo{alloc.copyInto(name), type};
-        return FieldInfo{id, type};
+        return FieldInfo{id, type, false};
     }
 };
 
@@ -123,8 +122,8 @@ struct ClassStorageTypeStorage : public ::mlir::TypeStorage
         // Cannot set a different body than before.
         llvm::SmallVector<::mlir::typescript::FieldInfo, 4> tmpFields;
 
-        for (size_t i = 0, e = newFields.size(); i < e; ++i)
-            tmpFields.push_back(newFields[i].allocateInto(allocator));
+        for (const auto & newField : newFields)
+            tmpFields.push_back(newField.allocateInto(allocator));
         auto copiedFields = allocator.copyInto(ArrayRef<::mlir::typescript::FieldInfo>(tmpFields));
 
         fields = copiedFields;
@@ -137,9 +136,9 @@ struct ClassStorageTypeStorage : public ::mlir::TypeStorage
 };
 } // namespace detail
 
-} // namespace typescript
+} // namespace mlir::typescript
 
-} // namespace mlir
+
 
 #define GET_TYPEDEF_CLASSES
 #include "TypeScript/TypeScriptOpsTypes.h.inc"

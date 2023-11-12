@@ -1,11 +1,11 @@
 set_Options()
 
 include_directories(
-    ${PROJECT_SOURCE_DIR}/tsc-new-parser
+    ${ROOT_DIR}/tsc/tsc-new-parser
     )
 
 link_directories(
-    ${PROJECT_SOURCE_DIR}/tsc-new-parser
+    ${ROOT_DIR}/tsc/tsc-new-parser
     )
 
 set (LIBS "${LIBS}" tsc-new-parser-lib)

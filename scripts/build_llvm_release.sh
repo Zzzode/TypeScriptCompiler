@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+
 cd __build/llvm/ninja/release
-cmake --build . --config Release --target install -j 8
+
+cmake --build . --config Release --target install -j
+
 cmake --install . --config Release
