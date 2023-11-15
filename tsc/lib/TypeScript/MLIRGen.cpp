@@ -1813,6 +1813,7 @@ class MLIRGenImpl
 
             auto [result, arrowFuncOp, arrowFuncName, isGeneric] =
                 mlirGenFunctionLikeDeclaration(arrowFunctionGenericTypeInfo->functionDeclaration, arrowFuncGenContext);
+            auto& arrowRuncOpRef = arrowFuncOp; // workaround for clang bug
             if (mlir::failed(result))
             {
                 emitError(location) << "can't instantiate specialized arrow function.";
@@ -1830,11 +1831,11 @@ class MLIRGenImpl
                 // fix create bound if any
                 TypeSwitch<mlir::Type>(createBoundFunctionOp.getType())
                     .template Case<mlir_ts::BoundFunctionType>([&](auto boundFunc) {
-                        arrowFunctionRefValue.setType(getBoundFunctionType(arrowFuncOp.getFunctionType()));
+                        arrowFunctionRefValue.setType(getBoundFunctionType(arrowRuncOpRef.getFunctionType()));
                     })
                     .template Case<mlir_ts::HybridFunctionType>([&](auto hybridFuncType) {
                         arrowFunctionRefValue.setType(
-                            mlir_ts::HybridFunctionType::get(builder.getContext(), arrowFuncOp.getFunctionType()));
+                            mlir_ts::HybridFunctionType::get(builder.getContext(), arrowRuncOpRef.getFunctionType()));
                     })
                     .Default([&](auto type) { llvm_unreachable("not implemented"); });
             }

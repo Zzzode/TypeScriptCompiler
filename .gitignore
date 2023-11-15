@@ -4,6 +4,7 @@ build
 !3rdParty/llvm-project
 .vs
 .antlr
+.idea
 tsc/out
 tsc/Testing
 tsc/Testing/Temporary/*

@@ -19,6 +19,8 @@ endif()
 
 project(tsc LANGUAGES CXX C)
 
+set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
+
 find_program(CCACHE_FOUND ccache)
 if(CCACHE_FOUND)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
@@ -113,6 +115,7 @@ include_directories(${MLIR_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)
 link_directories(${LLVM_BUILD_LIBRARY_DIR})
+#link_directories(${PROJECT_SOURCE_DIR}/../3rdParty/gc/${CMAKE_BUILD_TYPE_LOWERCASE})
 add_definitions(${LLVM_DEFINITIONS})
 
 add_definitions(-D_SILENCE_NONFLOATING_COMPLEX_DEPRECATION_WARNING)
@@ -136,7 +139,7 @@ if (NOT DEFINED TYPESCRIPT_IGNORE_UNIT_TESTS)
   if(EXISTS ${UNITTEST_DIR}/googletest/include/gtest/gtest.h)
     add_subdirectory(${UNITTEST_DIR} third-party/unittest)
   endif()
-  
+
   add_definitions(-DTYPESCRIPT_INCLUDE_TESTS)
   add_custom_target(MLIRTypeScriptUnitTests ALL)
   if (EXISTS ${MLIRTYPESCRIPT_LLVM_THIRD_PARTY_DIR}/unittest/googletest/include/gtest/gtest.h)

@@ -1,4 +1,6 @@
 #!/bin/sh
+set -ex
+
 mkdir -p __build/gc/ninja/release
 mkdir -p 3rdParty/gc/release
 cd __build/gc/ninja/release

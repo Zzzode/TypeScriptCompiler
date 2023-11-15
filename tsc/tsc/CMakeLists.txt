@@ -49,12 +49,13 @@ set(LIBS
     TypeScriptExportPass
     TypeScriptAliasPass
     TypeScriptMemAllocPass
+    TypeScriptRuntime
     )
 
 add_llvm_executable(tsc tsc.cpp compile.cpp transform.cpp dump.cpp jit.cpp obj.cpp exe.cpp TextDiagnostic.cpp TextDiagnosticPrinter.cpp utils.cpp opts.cpp)
 
 llvm_update_compile_flags(tsc)
-target_link_libraries(tsc PRIVATE ${LIBS})
+target_link_libraries(tsc PRIVATE ${LIBS} c++)
 target_compile_definitions(tsc PUBLIC TSC_PACKAGE_VERSION="${TSC_PACKAGE_VERSION}")
 
 MESSAGE (STATUS "VERSION = " ${TSC_PACKAGE_VERSION})
